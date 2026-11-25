@@ -1,6 +1,6 @@
 # tinna-craft — User Manual (คู่มือ)
 
-Your personal Antigravity toolkit, packaged as **one plugin**: 17 skills + your global rules.
+Your personal Antigravity toolkit, packaged as **one plugin**: 16 skills + your global rules.
 This folder is the **master copy**. Keep it in git; install it on any computer in a few minutes.
 
 ---
@@ -11,8 +11,8 @@ This folder is the **master copy**. Keep it in git; install it on any computer i
 tinna-craft/
 ├── plugin.json                 # plugin manifest (name, description, prompts)
 ├── 01_tinna-craft-manual.md    # this file
-├── rules/AGENTS.md             # always-on: global directives + Ponytail + Python/AI/C++ + Web rules
-└── skills/                     # 17 skills
+├── rules/AGENTS.md             # always-on: Ponytail + Anti-Slop + Auto-Routing + Python/AI/C++ + Web rules
+└── skills/                     # 16 skills
 ```
 
 | Category | Skills |
@@ -20,7 +20,7 @@ tinna-craft/
 | Workflow & tokens | `spec-first`, `quality-gate`, `rtkcave-token` |
 | Coding, UI, testing | `python-craft`, `frontend-ui-engineering`, `code-simplification`, `test-driven-development`, `feature-test-tree` |
 | Data, graph, speed | `data-craft`, `SpeedOptimizer`, `graphify` |
-| Docs, Thai Word, dirs | `thai-docx-polisher`, `doc-craft`, `dir-craft` |
+| Docs & dirs | `doc-craft`, `dir-craft` |
 | Security, git, install | `LocalAISecurity`, `git-craft`, `skill-implanter` |
 
 GSD (the 72 `gsd-*` skills + `gsd-*` agents) is **not** in this plugin. It stays in
@@ -46,7 +46,7 @@ python .\tinna-craft\skills\skill-implanter\scripts\implant_skills.py
 ```
 
 3. **Restart Antigravity.** New plugin folders are only discovered on startup.
-4. Check: Plugins page → **Tinna Craft** should list 17 skills and 1 rule.
+4. Check: Plugins page → **Tinna Craft** should list 16 skills and 1 rule.
 
 Optional — reinstall GSD on that computer with its own installer (not part of this plugin).
 
@@ -110,7 +110,7 @@ Closest pairs — keep both:
 |---|---|---|
 | `graphify` | `gsd-graphify` | GSD's is off by default, needs `.planning/config.json` + gsd-tools; yours runs anywhere |
 | `spec-first` | `gsd-spec-phase` | GSD writes a phase SPEC inside its roadmap; yours writes `specs/YYYY-MM-DD-slug.md` for any task |
-| `quality-gate` | `gsd-verify-work` | GSD = conversational UAT of a phase; yours = lint/type/test gate before "done" |
+| `quality-gate` | `gsd-verify-work` | GSD = conversational UAT of a phase; yours = `slop_audit.py` + lint/type/invariant/test gate before "done" |
 | `doc-craft` | `gsd-docs-update` | Similar goal; yours adds ADRs + `0N_` versioning |
 | `test-driven-development` | `gsd-add-tests` | GSD adds tests after a phase; yours drives red-green-refactor |
 | `git-craft` | `gsd-ship` / `gsd-pr-branch` | GSD = PR flow; yours = commits, secret screening, CHANGELOG |
