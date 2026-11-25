@@ -10,7 +10,13 @@ triggers: quality-gate, pre-completion check, verify work, self-review, ตร�
 
 # Quality Gate
 
-Goal: catch mistakes before the user does. Verify with evidence, not assumptions.
+Goal: catch mistakes and AI slop before the user does. Verify with evidence across the **Verification Pyramid** (Structure → Static/Types → Invariants → Behavior → Outer-Loop Diff Audit), not assumptions.
+
+## Step 0 — Run deterministic slop & boundary audit
+Before manual review, run [slop_audit.py](./scripts/slop_audit.py) on changed files (`--diff`) or the workspace (`--root .`) to catch silent `except`, debug leftovers, secret patterns, and cross-feature internal imports:
+```powershell
+python "<plugin_or_workspace>/skills/quality-gate/scripts/slop_audit.py" --root . --diff
+```
 
 ## Step 1 — Run the checks for each work type touched
 
@@ -23,12 +29,16 @@ new packages without asking. Fall back to the next option if missing.
 4. Tests: `python -m pytest -q` if tests exist. If none exist for new logic, add at
    least one test for the main path and one for an edge case.
 5. **Actually run the script** on a realistic sample input and inspect the output.
-6. Self-review the diff for:
+6. Self-review the diff (Outer-Loop Slop Audit) for:
+   - **Boundary & architecture integrity:** no cross-feature internal imports, no organic workarounds that will become bad "code memory"
+   - **State & runtime invariants:** critical state transitions, parsers, or pipelines enforce pre/post-conditions (`assert` or contract checks), not just happy-path tests
+   - **Anti-slop checks:** no silent `except`/fallback swallowing bugs, no duplicated logic, no speculative wrappers or unrequested options
    - unhandled errors (missing files, empty input, bad types, network failures)
    - hardcoded paths/secrets → use args, `pathlib`, or env vars
    - leftover `print` debugging, commented-out code, unused imports
    - clear names, docstrings on public functions, `if __name__ == "__main__":` entry point
    - new dependencies listed in `requirements.txt` / `pyproject.toml`
+   - **Revert-safe scope:** changes are atomic and cleanly revertible without breaking unrelated modules
 
 ### Data work
 1. **Raw data untouched** — originals not overwritten; outputs written to a separate path.

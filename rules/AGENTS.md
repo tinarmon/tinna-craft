@@ -18,7 +18,12 @@
    - Run verification checks (`quality-gate`) before declaring any task complete.
    - Respect data boundaries and air-gapped isolation (`LocalAISecurity`).
 
-4. **Document Quality, Anti-AI-Slop & Sequential Versioning (`0N_{ชื่อเอกสาร}`):**
+4. **Anti-Slop Architecture & Verification Pyramid (Dune / Outer-Loop Guardrails):**
+   - **Code is Memory (Anti-Organic-Architecture):** Never leave quick workarounds, silent fallbacks, or cross-module shortcuts that spread organically; fix at the root or isolate behind explicit boundaries.
+   - **Feature-Slice Isolation:** Group non-trivial features into self-contained folders with explicit public entrypoints; ban cross-feature internal imports.
+   - **Layered Trust Pyramid:** Clean Structure & Boundaries → Static/Type Checks → Runtime/State Invariants (`assert` / contract checks) → Behavior Tests → Outer-Loop Diff Audit & Revert-Safe Atomic Commits.
+
+5. **Document Quality, Anti-AI-Slop & Sequential Versioning (`0N_{ชื่อเอกสาร}`):**
    - All written documents, reports, proposals, `.docx`, `.pdf`, and `.pptx` deliverables must follow `doc-craft` Anti-AI-Slop editorial standards (BLUF prose, banned TH/EN clichés, Thai typography, and Booktabs tables).
    - All generated, exported, or organized documents (`.docx`, `.pdf`, `.pptx`, `.xlsx`, reports) must follow the zero-padded sequential format: `0N_{ชื่อเอกสาร}` (`01` to `N`).
    - Chronological progression (เก่า -> ใหม่): `01_` is initial draft, `02_` is revision, `0N_` is latest/final.
@@ -27,6 +32,8 @@
 ---
 
 ## 2. Skill Routing Matrix by Usage Category (`สกิลAI ตามประเภทการใช้งาน`)
+
+**Proactive Auto-Routing Rule:** Before starting any non-trivial task, match the user's intent against the table below **even if the user does not name a skill**. When a skill clearly fits, automatically read its `SKILL.md`, follow its workflow, and note briefly which skill was activated (skip heavy skills on trivial 1-line questions per Ponytail minimalism).
 
 | Category (หมวดหมู่การใช้งาน) | Skill Name | When to Activate / Trigger |
 |---|---|---|

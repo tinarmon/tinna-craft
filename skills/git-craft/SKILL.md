@@ -24,8 +24,9 @@ Before staging or committing, always inspect working directory state:
    - **Never commit:** `.env`, API keys, private tokens, passwords, database credentials.
    - **Never commit:** Temporary data files, cache folders (`__pycache__`, `.pytest_cache`), large raw binaries, or IDE-specific settings.
    - If sensitive or temporary files are untracked, add them to `.gitignore` first before staging.
-3. **Atomic Changes:**
+3. **Atomic & Revert-Safe Changes:**
    - Group related edits together. Do not mix unrelated refactoring, feature work, and formatting fixes into a single commit.
+   - Keep each commit small and self-contained so a faulty change can be cleanly reverted (`git revert`) with minimal blast radius.
 
 ---
 

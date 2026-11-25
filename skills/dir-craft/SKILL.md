@@ -16,7 +16,7 @@ Use this skill whenever a project's directory structure is messy, scattered, has
 1. **Audit First, Move Later:** Never move or rename files blindly. Always analyze file dependencies and present a Before/After tree blueprint for confirmation.
 2. **Import Integrity:** Moving a file requires updating every import statement, path alias, and relative link that points to it.
 3. **No Root Sprawl:** The repository root should strictly contain project-wide configuration files (e.g. `AGENTS.md`, `README.md`, `pyproject.toml`, `package.json`, `.gitignore`), never loose scripts, temporary data, or one-off tests.
-4. **Standard Layering:** Group files by architectural role, not by arbitrary dumping grounds.
+4. **Standard Layering & Feature-Slice Isolation:** Group files by architectural role or self-contained feature slices (`features/<name>/` with explicit public entrypoints), never by arbitrary dumping grounds. Ban cross-feature internal imports so workarounds cannot spread organically.
 
 ---
 
@@ -144,6 +144,21 @@ project-root/
 ├── tests/                     # Test cases
 └── docs/                      # Usage guides
 ```
+
+### Template D: Strict Feature-Slice Isolation (Anti-Slop / Dune Pattern)
+Use when scaling multi-feature Python or TypeScript apps to prevent organic cross-module coupling:
+```text
+src/
+└── features/
+    ├── <feature_a>/
+    │   ├── __init__.py / index.ts   # ONLY public API exposed outside this folder
+    │   ├── service.py / service.ts  # Internal logic (banned from direct external import)
+    │   └── test_feature_a.*         # Co-located or mirrored invariant & behavior tests
+    └── <feature_b>/
+        ├── __init__.py / index.ts
+        └── ...
+```
+- **Boundary Rule:** External modules may import **only** from `features/<name>`'s public entrypoint (`__init__.py` or `index.ts`), never deep internal files. Enforce via `ruff` / `import-linter` / `eslint-plugin-boundaries` where available.
 
 ---
 
