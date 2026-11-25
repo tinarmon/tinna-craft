@@ -1,0 +1,11 @@
+{
+  "name": "tinna-craft",
+  "displayName": "Tinna Craft",
+  "description": "Tinna's personal dev toolkit: Python/data/docs/dir/git craft skills, quality gate, spec-first, TDD, security, performance, plus global Ponytail/Python/Web rules.",
+  "version": "1.1.0",
+  "suggestedPrompts": [
+    "Run the quality gate on my last change",
+    "Profile this CSV without dumping it",
+    "Extract features and test case tree for this project"
+  ]
+}

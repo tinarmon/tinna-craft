@@ -1,0 +1,35 @@
+{
+  "project": "Sample App",
+  "stack": "Next.js + Prisma",
+  "features": [
+    {
+      "id": "F-AUTH",
+      "name": "Authentication",
+      "subfeatures": [
+        {
+          "id": "SF-LOGIN",
+          "name": "Email & Password Login",
+          "source_file": "src/server/auth/login.ts",
+          "tests": [
+            {
+              "id": "TC-AUTH-01",
+              "title": "Valid credentials return session",
+              "status": "covered",
+              "type": "integration",
+              "category": "happy",
+              "test_file": "tests/auth/login.test.ts"
+            },
+            {
+              "id": "TC-AUTH-02",
+              "title": "Rate-limit after 5 failed attempts",
+              "status": "missing",
+              "type": "integration",
+              "category": "security",
+              "test_file": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
